@@ -1,6 +1,7 @@
 {
     "name": "intothesource/entrance",
     "description": "entrance package",
+    "license": "BSD-2",
 	"type": "package",
     "require": {
         "php": ">=5.5.9",
