@@ -29,7 +29,8 @@ class EntranceServiceProvider extends ServiceProvider
         // this  for conig
                 $this->publishes([
                         __DIR__.'/config/entrance.php' => config_path('entrance.php'),
-                        __DIR__.'/migrations' => database_path('migrations'),
+                        __DIR__.'/database/migrations' => database_path('migrations'),
+                        __DIR__.'/database/seeds' => database_path('seeds'),
                         __DIR__.'/models' => app_path(),
                         __DIR__.'/views/emails' => base_path('resources/views/intothesource/entrance/emails'),
                         __DIR__.'/views/pages' => base_path('resources/views/intothesource/entrance/pages'),
