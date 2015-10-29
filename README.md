@@ -17,6 +17,13 @@ Add the following middleware routes to app/Http/Middleware/Kernel.php: <br>
 'checktoken' => \IntoTheSource\Entrance\Http\Middleware\CheckToken::class,
 'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
 ```
+
+##### Publish Files
+Run the following command: <br>
+```bash
+php artisan vendor:publish
+```
+
 ##### Authenticate Routes
 ```bash
 Route::group(['middleware' => 'checklogin'], function() {
