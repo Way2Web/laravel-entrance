@@ -15,4 +15,5 @@ class Password_reset extends Model
 {
     public $timestamps = false;
     protected $dates = ['created_at'];
+    protected $primaryKey = 'email';
 }
