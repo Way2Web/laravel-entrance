@@ -12,7 +12,7 @@ IntoTheSource\Entrance\EntranceServiceProvider::class,
 ```
 
 ##### Middleware
-Add the following middleware routes to app/Http/Middleware/Kernel.php: <br>
+Add the following middleware routes to app/Http/Kernel.php: <br>
 ```bash
 'checktoken' => \IntoTheSource\Entrance\Http\Middleware\CheckToken::class,
 'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
