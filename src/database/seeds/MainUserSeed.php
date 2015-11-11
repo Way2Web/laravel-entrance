@@ -15,7 +15,7 @@ class MainUserSeed extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'thesource',
-            'email' => 'dbikanov@intothesource.com',
+            'email' => 'cms@intothesource.com',
             'password' => bcrypt(''),
         ]);
 
