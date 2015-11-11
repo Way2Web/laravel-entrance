@@ -77,7 +77,7 @@ class EntranceController extends Controller
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return \Redirect::to('reset-password')->withInput();
+                return \Redirect::route('reset.password')->withInput();
 
             } else {
                 $pwr = new Password_reset();
@@ -90,12 +90,12 @@ class EntranceController extends Controller
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return \Redirect::to('reset-password')->withInput();
+                return \Redirect::route('reset.password')->withInput();
             }
         } else {
 
             $request->session()->flash('message', 'Er bestaat geen gebruiker met het ingevoerde e-mail adres.');
-            return \Redirect::to('reset-password')->withInput();
+            return \Redirect::route('reset.password')->withInput();
         }
     }
 
