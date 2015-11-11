@@ -1,5 +1,5 @@
 {
-    "name": "intothesource/entrance",
+    "name": "intothesource/laravel-entrance",
     "description": "entrance package",
     "license": "BSD-2",
 	"type": "package",
