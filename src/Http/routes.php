@@ -17,9 +17,9 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     });
 
     // GET - Show the send reset e-mail page/form
-    Route::get('reset-password', function () {
+    Route::get('reset-password', ['as' => 'reset.password', 'uses' => function () {
         return view('intothesource/entrance/pages/resetpassword');
-    });
+    }]);
 
     // POST - Send reset e-mail
     Route::post('sendReset', ['as' => 'sendReset', 'uses' => 'EntranceController@sendReset']);
