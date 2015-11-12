@@ -2,7 +2,7 @@
     "name": "intothesource/laravel-entrance",
     "description": "Entrance package for login and password reset",
     "keywords": ["laravel", "entrance", "login", "password", "reset", "thesource", "in to the source", "intothesource"],
-    "homepage": "https://github.com/intothesource/laravel-users",
+    "homepage": "https://github.com/intothesource/laravel-entrance",
     "license": "BSD-2",
     "authors": [
         {
