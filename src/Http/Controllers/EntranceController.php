@@ -7,8 +7,8 @@ namespace App\Http\Controllers\IntoTheSource\Entrance;
  * @author David Bikanov <dbikanov@intothesource.com>
  */
 use App\Http\Controllers\Controller;
-use App\Password_reset;
-use App\User;
+use IntoTheSource\Entrance\Models\Password_reset;
+use IntoTheSource\Entrance\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Carbon\Carbon;
@@ -16,10 +16,6 @@ use Carbon\Carbon;
 
 class EntranceController extends Controller
 {
-
-    public function showLogin(Request $request){
-        return view('intothesource.entrance.pages.login');
-    }
 
     /**
      * Logs user in after checking inserted data.
@@ -77,7 +73,7 @@ class EntranceController extends Controller
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return \Redirect::route('reset.password')->withInput();
+                return redirect()->route('reset.password')->withInput();
 
             } else {
                 $pwr = new Password_reset();
@@ -90,12 +86,12 @@ class EntranceController extends Controller
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return \Redirect::route('reset.password')->withInput();
+                return redirect()->route('reset.password')->withInput();
             }
         } else {
 
             $request->session()->flash('message', 'Er bestaat geen gebruiker met het ingevoerde e-mail adres.');
-            return \Redirect::route('reset.password')->withInput();
+            return redirect()->route('reset.password')->withInput();
         }
     }
 
@@ -120,7 +116,7 @@ class EntranceController extends Controller
 
                 $existingReset->delete();
 
-                return \Redirect::to('success');
+                return redirect()->route('success');
             } else {
                 $request->session()->flash('message', 'De ingevoerde wachtwoorden komen niet overeen.');
                 return back()->withInput();

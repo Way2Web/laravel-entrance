@@ -4,7 +4,11 @@
 //Prefix for the paths below.
 Route::group(['prefix' => config('entrance.prefix')], function() {
     // GET - Show login page
-    Route::get('login', ['as' => 'login.index', 'uses' => 'EntranceController@showLogin']);
+    //Route::get('login', ['as' => 'login.index', 'uses' => 'EntranceController@showLogin']);
+    Route::get('login', ['as' => 'login.index', 'uses' => function () {
+        return view('Entrance::pages.login');
+    }]);
+
     // POST - Logs user in
     Route::post('login', ['as' => 'postLogin', 'uses' => 'EntranceController@doLogin']);
     // GET - Logs user out
@@ -13,12 +17,12 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     // GET- Show succes page
     Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => 'EntranceController@showResetSuccess']);
     Route::get('success', function () {
-        return view('intothesource/entrance/pages/success');
+        return view('Entrance::pages.success');
     });
 
     // GET - Show the send reset e-mail page/form
     Route::get('reset-password', ['as' => 'reset.password', 'uses' => function () {
-        return view('intothesource/entrance/pages/resetpassword');
+        return view('Entrance::pages.resetpassword');
     }]);
 
     // POST - Send reset e-mail
@@ -26,7 +30,7 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
 
     // GET - Show reset page/form
     Route::get('reset/{token}', ['as' => 'password_reset', 'middleware' => 'checktoken', 'uses' => function ($token) {
-        return view('intothesource.entrance.pages.reset')->with(['token' => $token]);
+        return view('Entrance::pages.reset')->with(['token' => $token]);
     }]);
 
     //POST - Reset Password
