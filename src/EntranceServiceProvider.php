@@ -64,12 +64,12 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     }]);
 
     // POST - Logs user in
-    Route::post('login', ['as' => 'postLogin', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doLogin']);
+    Route::post('login', ['as' => 'postLogin', 'uses' => config('entrance.classes.entrance_controller').'@doLogin']);
     // GET - Logs user out
-    Route::get('logout', ['as' => 'logout.index', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doLogout']);
+    Route::get('logout', ['as' => 'logout.index', 'uses' => config('entrance.classes.entrance_controller').'@doLogout']);
 
     // GET- Show succes page
-    Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@showResetSuccess']);
+    Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => config('entrance.classes.entrance_controller').'@showResetSuccess']);
     Route::get('success', function () {
         return view('entrance::pages.success');
     });
@@ -80,15 +80,15 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     }]);
 
     // POST - Send reset e-mail
-    Route::post('sendReset', ['as' => 'sendReset', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@sendReset']);
+    Route::post('sendReset', ['as' => 'sendReset', 'uses' => config('entrance.classes.entrance_controller').'@sendReset']);
 
     // GET - Show reset page/form
-    Route::get('reset/{token}', ['as' => 'password_reset', 'middleware' => 'checktoken', 'uses' => function ($token) {
-        return view('entrance::pages.reset')->with(['token' => $token]);
+    Route::get('reset/{token}', ['as' => 'password_reset', 'middleware' => 'checktoken', 'uses' => function (\$token) {
+        return view('entrance::pages.reset')->with(['token' => \$token]);
     }]);
 
     //POST - Reset Password
-    Route::post('doReset', ['as' => 'doReset', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doReset']);
+    Route::post('doReset', ['as' => 'doReset', 'uses' => config('entrance.classes.entrance_controller').'@doReset']);
 
 
     //Authentication group - Check if user is logged in

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\IntoTheSource\Entrance;
+namespace IntoTheSource\Entrance\Http\Controllers;
 
 /**
  * @package Entrance

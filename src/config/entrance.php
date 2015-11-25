@@ -12,9 +12,9 @@
 
 
  		'classes' => [
- 			'user_model' => 'App\User'
- 			'password_reset_model' => '\IntoTheSource\Entrance\Models\Password_reset\\'
- 			'entrance_controller' => '\IntoTheSource\Entrance\Http\Controllers\\'
+ 			'user_model' => 'App\User',
+ 			'password_reset_model' => '\IntoTheSource\Entrance\Models\Password_reset',
+ 			'entrance_controller' => '\IntoTheSource\Entrance\Http\Controllers\EntranceController'
  		]
 
 
