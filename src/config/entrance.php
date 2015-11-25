@@ -13,8 +13,8 @@
 
  		'classes' => [
  			'user_model' => 'App\User'
- 			'password_reset_model' => 'Source\Entrance\Models\Password_reset'
- 			'entrance_controller' => 'Source\Entrance\Http\Controllers\EntranceController'
+ 			'password_reset_model' => '\IntoTheSource\Entrance\Models\Password_reset\\'
+ 			'entrance_controller' => '\IntoTheSource\Entrance\Http\Controllers\\'
  		]
 
 

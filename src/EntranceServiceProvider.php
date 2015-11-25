@@ -24,7 +24,8 @@ class EntranceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(realpath(__DIR__.'/../views'), 'entrance');
+
+        $this->loadViewsFrom(realpath(__DIR__.'/views'), 'entrance');
         $this->setupRoutes();
         // this  for conig
                 $this->publishes([
@@ -51,54 +52,56 @@ class EntranceServiceProvider extends ServiceProvider
     {
         $routesFile = app_path().'/Http/routes.php';
 
-        $routes = "\n //ENTRANCE ROUTES \n//Prefix for the paths below.
-            Route::group(['prefix' => config('entrance.prefix')], function() {
-                // GET - Show login page
-                Route::get('login', ['as' => 'login.index', 'uses' => 'EntranceController@showLogin']);
-                // POST - Logs user in
-                Route::post('login', ['as' => 'postLogin', 'uses' => 'EntranceController@doLogin']);
-                // GET - Logs user out
-                Route::get('logout', ['as' => 'logout.index', 'uses' => 'EntranceController@doLogout']);
+        $currentRoutes = file_get_contents($routesFile);
 
-                // GET- Show succes page
-                Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => 'EntranceController@showResetSuccess']);
-                Route::get('success', function () {
-                    return view('intothesource/entrance/pages/success');
-                });
+        if(strstr($currentRoutes,"ENTRANCE ROUTES") == false){
+            $token = '';
+            $routes = "\n //ENTRANCE ROUTES \n//Prefix for the paths below.
+Route::group(['prefix' => config('entrance.prefix')], function() {
 
-                // GET - Show the send reset e-mail page/form
-                Route::get('reset-password', ['as' => 'reset.password', 'uses' => function () {
-                    return view('intothesource/entrance/pages/resetpassword');
-                }]);
+    Route::get('login', ['as' => 'login.index', 'uses' => function () {
+        return view('entrance::pages.login');
+    }]);
 
-                // POST - Send reset e-mail
-                Route::post('sendReset', ['as' => 'sendReset', 'uses' => 'EntranceController@sendReset']);
+    // POST - Logs user in
+    Route::post('login', ['as' => 'postLogin', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doLogin']);
+    // GET - Logs user out
+    Route::get('logout', ['as' => 'logout.index', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doLogout']);
 
-                // GET - Show reset page/form
-                Route::get('reset/{token}', ['as' => 'password_reset', 'middleware' => 'checktoken', 'uses' => function ($token) {
-                    return view('intothesource.entrance.pages.reset')->with(['token' => $token]);
-                }]);
+    // GET- Show succes page
+    Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@showResetSuccess']);
+    Route::get('success', function () {
+        return view('entrance::pages.success');
+    });
 
-                //POST - Reset Password
-                Route::post('doReset', ['as' => 'doReset', 'uses' => 'EntranceController@doReset']);
+    // GET - Show the send reset e-mail page/form
+    Route::get('reset-password', ['as' => 'reset.password', 'uses' => function () {
+        return view('entrance::pages.resetpassword');
+    }]);
+
+    // POST - Send reset e-mail
+    Route::post('sendReset', ['as' => 'sendReset', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@sendReset']);
+
+    // GET - Show reset page/form
+    Route::get('reset/{token}', ['as' => 'password_reset', 'middleware' => 'checktoken', 'uses' => function ($token) {
+        return view('entrance::pages.reset')->with(['token' => $token]);
+    }]);
+
+    //POST - Reset Password
+    Route::post('doReset', ['as' => 'doReset', 'uses' => config('entrance.classes.entrance_controller').'EntranceController@doReset']);
 
 
-                //Authentication group - Check if user is logged in
-                Route::group(['middleware' => 'checklogin'], function() {
+    //Authentication group - Check if user is logged in
+    Route::group(['middleware' => 'checklogin'], function() {
 
-                });
-            });
+    });
+});
         \n";
 
 
-
-
         file_put_contents($routesFile, $routes, FILE_APPEND | LOCK_EX);
+        }
 
-
-        // $router->group(['namespace' => 'App\Http\Controllers\IntoTheSource\Entrance'], function ($router) {
-        //     require __DIR__.'/Http/routes.php';
-        // });
     }
     /**
      * Registers the config file during publishing.
