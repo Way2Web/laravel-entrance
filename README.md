@@ -1,43 +1,62 @@
 # Entrance
 Full entrance package, including login and password reset.
 
-##### Change the from e-mail adres:
-Change Global adres inside config/mail.php to the adres you want to send from.
-
-
-##### ServiceProvider
-Add the following provider to config/app.php: <br>
+## Install
 ```bash
-IntoTheSource\Entrance\EntranceServiceProvider::class,
+composer require intothesource/entrance
 ```
 
-##### Middleware
-Add the following middleware routes to app/Http/Kernel.php: <br>
+## After install
+
+#### ServiceProvider
+Add the following line to "config/app.php"
+
+at "providers":
+
+```bash
+IntoTheSource\Entrance\EntranceServiceProvider::class,
+Illuminate\Html\HtmlServiceProvider::class,
+```
+
+And at "aliases":
+
+```bash
+'Form'      => Illuminate\Html\FormFacade::class,
+'HTML'      => Illuminate\Html\HtmlFacade::class,
+```
+
+#### Creating the files
+Run the following command:
+
+```bash
+php artisan vendor:publish
+```
+
+#### Migration
+
+Run the command: 
+```bash
+php artisan migrate
+```
+
+#### Middleware
+
+Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Kernel.php'
+
 ```bash
 'checktoken' => \IntoTheSource\Entrance\Http\Middleware\CheckToken::class,
 'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
 ```
 
-##### Publish Files
-Run the following command: <br>
-```bash
-php artisan vendor:publish
-```
-
-##### Authenticate Routes
+#### Authenticate Routes
+Add all the routes into this group that need the users to be logged in.
 ```bash
 Route::group(['middleware' => 'checklogin'], function() {
     <Your routes>
 });
 ```
-##### Change successful login redirect
-put the following into your routes: <br>
-```bash
-Route::get('entrance/success', function () {
-    return view('<desired path>');
-});
-```
-##### Insert user
+
+##### Insert basic users (dont forget to change password)
 put the following seeds to database/seeds/DatabaseSeeder.php in the run() function<br>
 ```bash
 $this->call(MainUserSeed::class);
