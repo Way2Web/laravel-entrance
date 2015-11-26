@@ -48,10 +48,13 @@ Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Ke
 'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
 ```
 
-#### Mailing
+#### E-Mails
+This package sends e-mails. Be sure to configure your mail settings
 ```bash
-This package sends e-mails. Be sure to configure your mail settings.
+config/mail.php  ->  Set "Global "From" Address"
+
 ```
+See www.laravel.com/docs/master/mail for more info.
 
 #### Authenticate Routes
 Add all the routes into this group that need the users to be logged in.
