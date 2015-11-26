@@ -48,6 +48,11 @@ Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Ke
 'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
 ```
 
+#### Mailing
+
+This package sends e-mails. Be sure to configure your mail settings.
+
+
 #### Authenticate Routes
 Add all the routes into this group that need the users to be logged in.
 ```bash
