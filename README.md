@@ -49,15 +49,24 @@ Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Ke
 ```
 
 #### E-Mails
-This package sends e-mails. Be sure to configure your mail settings
+This package sends e-mails. Be sure to configure your mail settings.
+Set the global FROM adres inside -> config/mail.php
 ```bash
-config/mail.php  ->  Set "Global "From" Address"
-
+Exmaple:
+ 'from' => ['address' => 'laravel@laravel.com', 'name' => 'LaravelDev'],
 ```
-See www.laravel.com/docs/master/mail for more info.
+See www.laravel.com/docs/master/mail for more info about mail settings.
+
+##### Using own email template
+Change the view route inside -> config/entrance.php
+```bash
+'mail' => [
+ 			'password_reset' => '<your view here>'
+ 		]
+```
 
 #### Authenticate Routes
-Add all the routes into this group that need the users to be logged in.
+Add all the routes into this group that requires the users to be logged in.
 ```bash
 Route::group(['middleware' => 'checklogin'], function() {
     <Your routes>
