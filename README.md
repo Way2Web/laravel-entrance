@@ -57,7 +57,7 @@ Exmaple:
 ```
 See www.laravel.com/docs/master/mail for more info about mail settings.
 
-##### Using own email template
+##### Using own email template for password reset mail.
 Change the view route inside -> config/entrance.php
 ```bash
 'mail' => [
