@@ -70,9 +70,9 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
 
     // GET- Show succes page
     Route::get('resetSuccess', ['as' => 'reset.success', 'uses' => config('entrance.classes.entrance_controller').'@showResetSuccess']);
-    Route::get('success', function () {
+    Route::get('success', ['as' => 'success', 'uses' => function () {
         return view('entrance::pages.success');
-    });
+    }]);
 
     // GET - Show the send reset e-mail page/form
     Route::get('reset-password', ['as' => 'reset.password', 'uses' => function () {
