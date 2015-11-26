@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace IntoTheSource\Entrance\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
