@@ -68,7 +68,7 @@ class EntranceController extends Controller
                 $existingReset->created_at = Carbon::now()->toDateTimeString();
                 $existingReset->save();
 
-                \Mail::send('intothesource.entrance.emails.passwordreset', ['reset' => $existingReset->token], function ($m) use ($user) {
+                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $existingReset->token], function ($m) use ($user) {
                     $m->to($user->email, $user->name)->subject('Your Password Reset!');
                 });
 
@@ -81,7 +81,7 @@ class EntranceController extends Controller
                 $pwr->token = $request->request->get('_token');
                 $pwr->save();
 
-                \Mail::send('intothesource.entrance.emails.passwordreset', ['reset' => $request->input('_token')], function ($m) use ($user) {
+                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $request->input('_token')], function ($m) use ($user) {
                     $m->to($user->email, $user->name)->subject('Your Password Reset!');
                 });
 
