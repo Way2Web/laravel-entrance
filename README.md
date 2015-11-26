@@ -49,9 +49,9 @@ Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Ke
 ```
 
 #### Mailing
-
+```bash
 This package sends e-mails. Be sure to configure your mail settings.
-
+```
 
 #### Authenticate Routes
 Add all the routes into this group that need the users to be logged in.
