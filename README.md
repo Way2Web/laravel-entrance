@@ -27,7 +27,7 @@ And at "aliases":
 
 #### Creating the files
 Run the following command:
-(It's using force because the User and Password reset table already exist inside laravel)
+(It's using force because the User and Password reset table already exist inside laravel. It will overwrite them.)
 ```bash
 php artisan vendor:publish --force
 ```
