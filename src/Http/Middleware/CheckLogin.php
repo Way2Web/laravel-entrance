@@ -8,12 +8,30 @@ namespace IntoTheSource\Entrance\Http\Middleware;
  */
 
 use Closure;
-use Auth;
+use Illuminate\Contracts\Auth\Guard;
 
 class CheckLogin
 {
     /**
-     * Run the request filter.
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
+
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard  $auth
+     * @return void
+     */
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -21,11 +39,15 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
-
-        if (\Auth::check()) {
-            return $next($request);
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                $request->session()->put('error', 'U moet eerst inloggen om de pagina in te zien.');
+                return redirect()->guest( route('login.index') );
+            }
         }
-        $request->session()->put('error', 'U moet eerst inloggen om de pagina in te zien.');
-        return \Redirect::route('login.index');
+
+        return $next($request);
     }
 }

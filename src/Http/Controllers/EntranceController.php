@@ -33,7 +33,7 @@ class EntranceController extends Controller
         if(\Auth::attempt($userdata, true, true))
         {
             $request->session()->flash('message', 'Ingelogd');
-            return back();
+            return redirect()->intended();
         }
         else
         {
@@ -79,8 +79,8 @@ class EntranceController extends Controller
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
                 return redirect()->route('reset.password')->withInput();
 
-            } 
-            else 
+            }
+            else
             {
                 $pwr = new Password_reset();
                 $pwr->email = $request->request->get('email');
@@ -94,8 +94,8 @@ class EntranceController extends Controller
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
                 return redirect()->route('reset.password')->withInput();
             }
-        } 
-        else 
+        }
+        else
         {
 
             $request->session()->flash('message', 'Er bestaat geen gebruiker met het ingevoerde e-mail adres.');
@@ -115,9 +115,9 @@ class EntranceController extends Controller
                                         ->where('token', $request->request->get('token'))
                                         ->first();
 
-        if ($existingReset !== null) 
+        if ($existingReset !== null)
         {
-            if ($request->input('password') === $request->input('repeat-password')) 
+            if ($request->input('password') === $request->input('repeat-password'))
             {
 
                 $user = User::where('email',$request->request->get('email'))->first();
@@ -127,13 +127,13 @@ class EntranceController extends Controller
                 $existingReset->delete();
 
                 return redirect()->route('success');
-            } 
-            else 
+            }
+            else
             {
                 $request->session()->flash('message', 'De ingevoerde wachtwoorden komen niet overeen.');
                 return back()->withInput();
             }
-        } 
+        }
         else
         {
             $request->session()->flash('message', 'Het ingevoerde e-mail adres is onjuist.');

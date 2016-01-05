@@ -19,7 +19,7 @@ class EntranceServiceProvider extends ServiceProvider
     protected $defer = false;
     /**
      * Perform post-registration booting of services.
-     * 
+     *
      * @return void
      */
     public function boot()
@@ -38,10 +38,8 @@ class EntranceServiceProvider extends ServiceProvider
                         //__DIR__.'/Http/Controllers' => app_path('Http/Controllers/Intothesource/Entrance'),
 
                 ]);
-
-
-
     }
+
     /**
      * Define the routes for the application.
      *
@@ -105,8 +103,8 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     }
     /**
      * Registers the config file during publishing.
-     * 
-     * @return void 
+     *
+     * @return void
      */
     public function register()
     {
@@ -117,7 +115,7 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
     }
     /**
      * Registers the packages.
-     * 
+     *
      * @return Entrance app
      */
     private function registerEntrance()
