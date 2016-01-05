@@ -20,10 +20,11 @@ class EntranceController extends Controller
     /**
      * Logs user in after checking inserted data.
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return void
      * @author David Bikanov
      */
-    public function doLogin(Request $request){
+    public function doLogin(Request $request)
+    {
         $userdata = array(
             'email'     =>  \Input::get('email'),
             'password'  =>  \Input::get('password')
@@ -43,7 +44,7 @@ class EntranceController extends Controller
 
     /**
      * Logs user out.
-     * @return \Illuminate\Http\RedirectResponse
+     * @return void
      * @author David Bikanov
      */
     public function doLogout(Request $request)
@@ -56,14 +57,17 @@ class EntranceController extends Controller
     /**
      * Sends a password reset e-mail to the user.
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return void
      * @author David Bikanov
      */
-    public function sendReset(Request $request){
+    public function sendReset(Request $request)
+    {
         $user = User::where('email', '=', $request->input('email'))->first();
-        if($user !== null){
+        if($user !== null)
+        {
             $existingReset = Password_reset::where('email', $request->request->get('email'))->first();
-            if($existingReset !== null){
+            if($existingReset !== null)
+            {
 
                 $existingReset->created_at = Carbon::now()->toDateTimeString();
                 $existingReset->save();
@@ -75,7 +79,9 @@ class EntranceController extends Controller
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
                 return redirect()->route('reset.password')->withInput();
 
-            } else {
+            } 
+            else 
+            {
                 $pwr = new Password_reset();
                 $pwr->email = $request->request->get('email');
                 $pwr->token = $request->request->get('_token');
@@ -88,7 +94,9 @@ class EntranceController extends Controller
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
                 return redirect()->route('reset.password')->withInput();
             }
-        } else {
+        } 
+        else 
+        {
 
             $request->session()->flash('message', 'Er bestaat geen gebruiker met het ingevoerde e-mail adres.');
             return redirect()->route('reset.password')->withInput();
@@ -98,7 +106,7 @@ class EntranceController extends Controller
     /**
      * Resets the users password.
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return void
      * @author David Bikanov
      */
     public function doReset(Request $request)
@@ -107,8 +115,10 @@ class EntranceController extends Controller
                                         ->where('token', $request->request->get('token'))
                                         ->first();
 
-        if ($existingReset !== null) {
-            if ($request->input('password') === $request->input('repeat-password')) {
+        if ($existingReset !== null) 
+        {
+            if ($request->input('password') === $request->input('repeat-password')) 
+            {
 
                 $user = User::where('email',$request->request->get('email'))->first();
                 $user->password = \Hash::make($request->input('password'));
@@ -117,11 +127,15 @@ class EntranceController extends Controller
                 $existingReset->delete();
 
                 return redirect()->route('success');
-            } else {
+            } 
+            else 
+            {
                 $request->session()->flash('message', 'De ingevoerde wachtwoorden komen niet overeen.');
                 return back()->withInput();
             }
-        } else {
+        } 
+        else
+        {
             $request->session()->flash('message', 'Het ingevoerde e-mail adres is onjuist.');
             return back()->withInput(\Input::except('email'));
         }
