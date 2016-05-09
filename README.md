@@ -15,14 +15,14 @@ at "providers":
 
 ```bash
 IntoTheSource\Entrance\EntranceServiceProvider::class,
-Illuminate\Html\HtmlServiceProvider::class,
+Collective\Html\HtmlServiceProvider::class,
 ```
 
 And at "aliases":
 
 ```bash
-'Form'      => Illuminate\Html\FormFacade::class,
-'HTML'      => Illuminate\Html\HtmlFacade::class,
+'Form'      => 'Collective\Html\FormFacade',
+'Html'      => 'Collective\Html\HtmlFacade',
 ```
 
 #### Creating the files
