@@ -21,8 +21,8 @@ Collective\Html\HtmlServiceProvider::class,
 And at "aliases":
 
 ```bash
-'Form'      => 'Collective\Html\FormFacade',
-'Html'      => 'Collective\Html\HtmlFacade',
+'Form'      => Collective\Html\FormFacade::class,
+'Html'      => Collective\Html\HtmlFacade::class,
 ```
 
 #### Creating the files
