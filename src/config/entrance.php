@@ -9,7 +9,11 @@
          * @note add a '/' at the end of the prefix
          */
         'prefix' => 'cms/',
-
+        
+        /**
+         * Users need to be activated for logging in
+         */
+        'activated' => FALSE,
 
  		'classes' => [
  			'user_model' => 'App\User',

@@ -85,9 +85,16 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
         return view('entrance::pages.reset')->with(['token' => \$token]);
     }]);
 
-    //POST - Reset Password
+    // POST - Reset Password
     Route::post('doReset', ['as' => 'doReset', 'uses' => config('entrance.classes.entrance_controller').'@doReset']);
 
+    // GET - Show register form
+    Route::get('register', ['as' => 'register', 'uses' => function() {
+        return view('entrance::pages.register');
+    }]);
+
+    // POST - Register User
+    Route::post('doRegister', ['as' => 'postRegister', 'uses' => config('entrance.classes.entrance_controller').'@doRegister']);
 
     //Authentication group - Check if user is logged in
     Route::group(['middleware' => 'checklogin'], function() {

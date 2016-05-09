@@ -5,14 +5,15 @@ namespace IntoTheSource\Entrance\Http\Controllers;
 /**
  * @package Entrance
  * @author David Bikanov <dbikanov@intothesource.com>
+ * @author Gertjan Roke <gjroke@intothesource.com>
  */
 use App\Http\Controllers\Controller;
 use IntoTheSource\Entrance\Models\Password_reset;
 use IntoTheSource\Entrance\Models\User;
+use IntoTheSource\Entrance\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Carbon\Carbon;
-
 
 class EntranceController extends Controller
 {
@@ -26,12 +27,21 @@ class EntranceController extends Controller
     public function doLogin(Request $request)
     {
         $userdata = array(
-            'email'     =>  \Input::get('email'),
-            'password'  =>  \Input::get('password')
+            'email'     =>  $request->get('email'),
+            'password'  =>  $request->get('password')
         );
-
+        
         if(\Auth::attempt($userdata, true, true))
         {
+            if(config('entrance.activated')) {
+                if(\Auth::user()->active != 1) {
+                    // Logging the user out
+                    \Auth::logout();
+
+                    $request->session()->flash('message', 'Dit account is staat niet op active');
+                    return redirect()->route('login.index')->withInput();
+                }
+            }
             $request->session()->flash('message', 'Ingelogd');
             return redirect()->intended();
         }
@@ -65,7 +75,7 @@ class EntranceController extends Controller
         $user = User::where('email', '=', $request->input('email'))->first();
         if($user !== null)
         {
-            $existingReset = Password_reset::where('email', $request->request->get('email'))->first();
+            $existingReset = Password_reset::where('email', $request->get('email'))->first();
             if($existingReset !== null)
             {
 
@@ -83,11 +93,11 @@ class EntranceController extends Controller
             else
             {
                 $pwr = new Password_reset();
-                $pwr->email = $request->request->get('email');
-                $pwr->token = $request->request->get('_token');
+                $pwr->email = $request->get('email');
+                $pwr->token = $request->get('_token');
                 $pwr->save();
 
-                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $request->input('_token')], function ($m) use ($user) {
+                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $request->get('_token')], function ($m) use ($user) {
                     $m->to($user->email, $user->name)->subject('Your Password Reset!');
                 });
 
@@ -111,17 +121,16 @@ class EntranceController extends Controller
      */
     public function doReset(Request $request)
     {
-        $existingReset = Password_reset::where('email', $request->request->get('email'))
-                                        ->where('token', $request->request->get('token'))
+        $existingReset = Password_reset::where('email', $request->get('email'))
+                                        ->where('token', $request->get('token'))
                                         ->first();
 
         if ($existingReset !== null)
         {
-            if ($request->input('password') === $request->input('repeat-password'))
+            if ($request->get('password') === $request->get('repeat-password'))
             {
-
-                $user = User::where('email',$request->request->get('email'))->first();
-                $user->password = \Hash::make($request->input('password'));
+                $user = User::where('email',$request->get('email'))->first();
+                $user->password = bcrypt($request->get('password'));
                 $user->save();
 
                 $existingReset->delete();
@@ -137,7 +146,24 @@ class EntranceController extends Controller
         else
         {
             $request->session()->flash('message', 'Het ingevoerde e-mail adres is onjuist.');
-            return back()->withInput(\Input::except('email'));
+            return back()->withInput($request->except('email'));
         }
+    }
+
+    /**
+     * Register the given input
+     * 
+     * @param RegisterRequest $request
+     * @return redirect
+     */
+    public function doRegister(RegisterRequest $request)
+    {
+        // Encrypt the password
+        $request['password'] = bcrypt($request->get('password'));
+
+        User::create($request->all());
+
+        $request->session()->flash('message', 'Succesvol geregistreerd');
+        return Redirect()->route('register');
     }
 }
