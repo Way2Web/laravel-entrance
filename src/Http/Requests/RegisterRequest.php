@@ -3,6 +3,7 @@
 namespace IntoTheSource\Entrance\Http\Requests;
 
 use App\Http\Requests\Request;
+use Config;
 
 class RegisterRequest extends Request
 {
@@ -25,7 +26,7 @@ class RegisterRequest extends Request
     {
         return [
             'email'     => 'required|email|max:255|unique:users,email',
-            'password'  => 'required|confirmed|min:10|max:255',
+            'password'  => 'required|confirmed|min:'.config('entrance.password_length').'|max:255',
         ];
     }
 }

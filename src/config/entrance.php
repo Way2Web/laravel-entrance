@@ -14,6 +14,11 @@
          * Users need to be activated for logging in
          */
         'activated' => FALSE,
+        
+        /**
+         * Set the minimal length of the passwords
+         */
+        'password_length' => 5,
 
  		'classes' => [
  			'user_model' => 'App\User',
