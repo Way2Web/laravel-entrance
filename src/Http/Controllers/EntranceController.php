@@ -161,7 +161,12 @@ class EntranceController extends Controller
         // Encrypt the password
         $request['password'] = bcrypt($request->get('password'));
 
-        User::create($request->all());
+        $userModel = config('entrance.classes.user_model');
+        $user = $userModel::create($request->all());
+
+        if(config('intothesource')) {
+            $user->roles()->attach([config('intothesource.usermanager.default_role')]);
+        }
 
         $request->session()->flash('message', 'Succesvol geregistreerd');
         return Redirect()->route('register');
