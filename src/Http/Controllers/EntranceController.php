@@ -165,7 +165,8 @@ class EntranceController extends Controller
         $user = $userModel::create($request->all());
 
         if(config('intothesource')) {
-            $user->roles()->attach([config('intothesource.usermanager.default_role')]);
+            $role = Role::where('name', config('intothesource.usermanager.default_role'))->firstOrFail()->id;
+            $user->roles()->attach([$role]);
         }
 
         $request->session()->flash('message', 'Succesvol geregistreerd');
