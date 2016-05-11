@@ -17,12 +17,14 @@ class MainUserSeed extends Seeder
             'name' => 'thesource',
             'email' => 'cms@intothesource.com',
             'password' => bcrypt(''),
+            'status' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
+            'status' => 1,
         ]);
 
 

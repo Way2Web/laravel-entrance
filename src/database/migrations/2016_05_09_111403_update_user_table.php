@@ -13,7 +13,7 @@ class UpdateUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('active')->after('password')->nullable();
+            $table->integer('status')->after('password')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class UpdateUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('active');
+            $table->dropColumn('status');
         });
     }
 }

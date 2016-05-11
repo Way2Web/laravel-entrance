@@ -34,7 +34,7 @@ class EntranceController extends Controller
         if(\Auth::attempt($userdata, true, true))
         {
             if(config('entrance.activated')) {
-                if(\Auth::user()->active != 1) {
+                if(\Auth::user()->status != 1) {
                     // Logging the user out
                     \Auth::logout();
 
