@@ -165,7 +165,8 @@ class EntranceController extends Controller
         $user = $userModel::create($request->all());
 
         if(config('intothesource')) {
-            $role = Role::where('name', config('intothesource.usermanager.default_role'))->firstOrFail()->id;
+            $roleModel = config('intothesource.usermanager.default_role_model');
+            $role = $roleModel::where('name', config('intothesource.usermanager.default_role'))->firstOrFail()->id;
             $user->roles()->attach([$role]);
         }
 
