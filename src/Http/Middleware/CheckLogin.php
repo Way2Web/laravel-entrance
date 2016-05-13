@@ -43,7 +43,7 @@ class CheckLogin
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                $request->session()->put('error', 'U moet eerst inloggen om de pagina in te zien.');
+                $request->session()->flash('error', 'U moet eerst inloggen om de pagina in te zien.');
                 return redirect()->guest( route('login.index') );
             }
         }

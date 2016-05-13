@@ -29,10 +29,10 @@ class CheckToken
             if($reset->created_at->diffInHours() === 0){
                 return $next($request);
             }
-            $request->session()->put('error', 'De token is verlopen. Vraag een nieuwe link aan.');
+            $request->session()->flash('error', 'De token is verlopen. Vraag een nieuwe link aan.');
             return \Redirect::route('reset.password');
         }
-        $request->session()->put('error', 'De token is onjuist. Vraag een nieuwe link aan of neem contact op met de beheerder als het probleem zich blijft voortdoen.');
+        $request->session()->flash('error', 'De token is onjuist. Vraag een nieuwe link aan of neem contact op met de beheerder als het probleem zich blijft voortdoen.');
         return \Redirect::route('reset.password');
     }
 }
