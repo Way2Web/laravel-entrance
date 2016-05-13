@@ -27,8 +27,8 @@ class EntranceController extends Controller
     public function doLogin(Request $request)
     {
         $userdata = array(
-            'email'     =>  $request->get('email'),
-            'password'  =>  $request->get('password')
+            'email'     =>  $request->email,
+            'password'  =>  $request->password
         );
         
         if(\Auth::attempt($userdata, true, true))
@@ -39,7 +39,7 @@ class EntranceController extends Controller
                     \Auth::logout();
 
                     $request->session()->flash('message', 'Dit account is staat niet op active');
-                    return redirect()->route('login.index')->withInput();
+                    return redirect()->route('login.index');
                 }
             }
             $request->session()->flash('message', 'Ingelogd');
@@ -72,10 +72,10 @@ class EntranceController extends Controller
      */
     public function sendReset(Request $request)
     {
-        $user = User::where('email', '=', $request->input('email'))->first();
+        $user = User::where('email', '=', $request->email)->first();
         if($user !== null)
         {
-            $existingReset = Password_reset::where('email', $request->get('email'))->first();
+            $existingReset = Password_reset::where('email', $request-email)->first();
             if($existingReset !== null)
             {
 
@@ -87,29 +87,30 @@ class EntranceController extends Controller
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return redirect()->route('reset.password')->withInput();
+                return redirect()->route('reset.password');
 
             }
             else
             {
-                $pwr = new Password_reset();
-                $pwr->email = $request->get('email');
-                $pwr->token = $request->get('_token');
-                $pwr->save();
+                $passwordReset = new Password_reset();
+                $passwordReset->email = $request->email;
+                $passwordReset->token = $request->_token;
+                $passwordReset->created_at = Carbon::now()->toDateTimeString();
+                $passwordReset->save();
 
-                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $request->get('_token')], function ($m) use ($user) {
+                \Mail::send(config('entrance.mail.password_reset'), ['reset' => $request->_token], function ($m) use ($user) {
                     $m->to($user->email, $user->name)->subject('Your Password Reset!');
                 });
 
                 $request->session()->flash('message', 'Er is een e-mail met een link verzonden.');
-                return redirect()->route('reset.password')->withInput();
+                return redirect()->route('reset.password');
             }
         }
         else
         {
 
             $request->session()->flash('message', 'Er bestaat geen gebruiker met het ingevoerde e-mail adres.');
-            return redirect()->route('reset.password')->withInput();
+            return redirect()->route('reset.password');
         }
     }
 
@@ -121,16 +122,16 @@ class EntranceController extends Controller
      */
     public function doReset(Request $request)
     {
-        $existingReset = Password_reset::where('email', $request->get('email'))
-                                        ->where('token', $request->get('token'))
+        $existingReset = Password_reset::where('email', $request->email)
+                                        ->where('token', $request->token)
                                         ->first();
 
         if ($existingReset !== null)
         {
-            if ($request->get('password') === $request->get('repeat-password'))
+            if ($request->password === $request->repeat-password)
             {
-                $user = User::where('email',$request->get('email'))->first();
-                $user->password = bcrypt($request->get('password'));
+                $user = User::where('email',$request->email)->first();
+                $user->password = bcrypt($request->password);
                 $user->save();
 
                 $existingReset->delete();
@@ -159,7 +160,7 @@ class EntranceController extends Controller
     public function doRegister(RegisterRequest $request)
     {
         // Encrypt the password
-        $request['password'] = bcrypt($request->get('password'));
+        $request['password'] = bcrypt($request->password);
 
         $userModel = config('entrance.classes.user_model');
         $user = $userModel::create($request->all());
