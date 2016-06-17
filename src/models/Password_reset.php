@@ -13,7 +13,9 @@ use Carbon\Carbon;
  */
 class Password_reset extends Model
 {
-    public $timestamps = false;
-    protected $dates = ['created_at'];
-    protected $primaryKey = 'email';
+    public $timestamps      = false;
+    public $fillable        = ['email', 'token', 'created_at'];
+    
+    protected $dates        = ['created_at'];
+    protected $primaryKey   = 'email';
 }
