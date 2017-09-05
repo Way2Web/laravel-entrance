@@ -75,7 +75,7 @@ class EntranceController extends Controller
         $user = User::where('email', '=', $request->email)->first();
         if($user !== null)
         {
-            $existingReset = Password_reset::where('email', $request-email)->first();
+            $existingReset = Password_reset::where('email', $request->email)->first();
             if($existingReset !== null)
             {
 
