@@ -128,7 +128,7 @@ class EntranceController extends Controller
 
         if ($existingReset !== null)
         {
-            if ($request->password === $request->repeat-password)
+            if ($request->password === $request->input('repeat-password'))
             {
                 $user = User::where('email',$request->email)->first();
                 $user->password = bcrypt($request->password);
