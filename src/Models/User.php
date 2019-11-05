@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance\Models;
+namespace Way2Web\Entrance\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

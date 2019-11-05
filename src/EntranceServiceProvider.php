@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance;
+namespace Way2Web\Entrance;
 
 /**
  * @package Entrance

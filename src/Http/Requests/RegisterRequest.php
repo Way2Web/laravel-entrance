@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance\Http\Requests;
+namespace Way2Web\Entrance\Http\Requests;
 
 use App\Http\Requests\Request;
 use Config;

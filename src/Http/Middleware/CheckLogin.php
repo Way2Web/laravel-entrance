@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance\Http\Middleware;
+namespace Way2Web\Entrance\Http\Middleware;
 
 /**
  * @package Entrance

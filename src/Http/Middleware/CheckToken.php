@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance\Http\Middleware;
+namespace Way2Web\Entrance\Http\Middleware;
 
 /**
  * @package Entrance
@@ -8,7 +8,7 @@ namespace IntoTheSource\Entrance\Http\Middleware;
  */
 
 use Closure;
-use IntoTheSource\Entrance\Models\Password_reset;
+use Way2Web\Entrance\Models\Password_reset;
 use Carbon\Carbon;
 
 class CheckToken

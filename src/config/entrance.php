@@ -22,8 +22,8 @@
 
  		'classes' => [
  			'user_model' => 'App\User',
- 			'password_reset_model' => '\IntoTheSource\Entrance\Models\Password_reset',
- 			'entrance_controller' => '\IntoTheSource\Entrance\Http\Controllers\EntranceController'
+ 			'password_reset_model' => '\Way2Web\Entrance\Models\Password_reset',
+ 			'entrance_controller' => '\Way2Web\Entrance\Http\Controllers\EntranceController'
  		],
 
  		'mail' => [

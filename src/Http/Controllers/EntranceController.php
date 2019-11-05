@@ -1,6 +1,6 @@
 <?php
 
-namespace IntoTheSource\Entrance\Http\Controllers;
+namespace Way2Web\Entrance\Http\Controllers;
 
 /**
  * @package Entrance
@@ -8,9 +8,9 @@ namespace IntoTheSource\Entrance\Http\Controllers;
  * @author Gertjan Roke <gjroke@intothesource.com>
  */
 use App\Http\Controllers\Controller;
-use IntoTheSource\Entrance\Models\Password_reset;
-use IntoTheSource\Entrance\Models\User;
-use IntoTheSource\Entrance\Http\Requests\RegisterRequest;
+use Way2Web\Entrance\Models\Password_reset;
+use Way2Web\Entrance\Models\User;
+use Way2Web\Entrance\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Carbon\Carbon;
