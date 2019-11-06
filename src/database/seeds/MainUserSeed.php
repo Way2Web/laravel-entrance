@@ -14,20 +14,10 @@ class MainUserSeed extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'thesource',
-            'email' => 'cms@intothesource.com',
-            'password' => bcrypt(''),
-            'status' => 1,
-        ]);
-
-        DB::table('users')->insert([
             'name' => 'admin',
-            'email' => 'admin@admin.com',
+            'email' => 'admin@way2web.com',
             'password' => bcrypt('admin'),
             'status' => 1,
         ]);
-
-
-
     }
 }
