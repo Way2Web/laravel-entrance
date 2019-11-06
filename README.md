@@ -3,7 +3,7 @@ Full entrance package, including login and password reset.
 
 ## Install
 ```bash
-composer require intothesource/entrance
+composer require way2web/laravel-entrance
 ```
 
 ## After install
@@ -14,15 +14,15 @@ Add the following line to "config/app.php"
 at "providers":
 
 ```bash
-IntoTheSource\Entrance\EntranceServiceProvider::class,
+Way2Web\Entrance\EntranceServiceProvider::class,
 Collective\Html\HtmlServiceProvider::class,
 ```
 
 And at "aliases":
 
 ```bash
-'Form'      => Collective\Html\FormFacade::class,
-'Html'      => Collective\Html\HtmlFacade::class,
+'Form' => Collective\Html\FormFacade::class,
+'Html' => Collective\Html\HtmlFacade::class,
 ```
 
 #### Creating the files
@@ -44,8 +44,8 @@ php artisan migrate
 Add the following lines to the '$routeMiddleware' array in the file 'App/Http/Kernel.php'
 
 ```bash
-'checktoken' => \IntoTheSource\Entrance\Http\Middleware\CheckToken::class,
-'checklogin' => \IntoTheSource\Entrance\Http\Middleware\CheckLogin::class,
+'checktoken' => \Way2Web\Entrance\Http\Middleware\CheckToken::class,
+'checklogin' => \Way2Web\Entrance\Http\Middleware\CheckLogin::class,
 ```
 
 #### E-Mails
