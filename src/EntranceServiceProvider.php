@@ -2,12 +2,11 @@
 
 namespace Way2Web\Entrance;
 
-/**
+/*
  * @package Entrance
  * @author David Bikanov <dbikanov@intothesource.com> and Douwe de Haan <ddehaan@intothesource.com>
  */
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
 
 class EntranceServiceProvider extends ServiceProvider
 {
@@ -17,35 +16,33 @@ class EntranceServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = false;
+
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function boot()
     {
-        $this->loadViewsFrom(realpath(__DIR__.'/views'), 'entrance');
+        $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'entrance');
         $this->setupRoutes();
         $this->publishes([
-                __DIR__.'/config/entrance.php' => config_path('entrance.php'),
-                __DIR__.'/database/migrations' => database_path('migrations'),
-                __DIR__.'/database/seeds' => database_path('seeds'),
+                __DIR__ . '/config/entrance.php' => config_path('entrance.php'),
+                __DIR__ . '/database/migrations' => database_path('migrations'),
+                __DIR__ . '/database/seeds'      => database_path('seeds'),
         ]);
     }
 
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
+     * @param \Illuminate\Routing\Router $router
      */
     public function setupRoutes()
     {
-        $routesFile = app_path().'/Http/routes.php';
+        $routesFile = app_path() . '/Http/routes.php';
 
         $currentRoutes = file_get_contents($routesFile);
 
-        if(strstr($currentRoutes,"ENTRANCE ROUTES") == false){
+        if (strstr($currentRoutes, 'ENTRANCE ROUTES') == false) {
             $token = '';
             $routes = "\n //ENTRANCE ROUTES \n//Prefix for the paths below.
 Route::group(['prefix' => config('entrance.prefix')], function() {
@@ -96,15 +93,12 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
 });
         \n";
 
-
-        file_put_contents($routesFile, $routes, FILE_APPEND | LOCK_EX);
+            file_put_contents($routesFile, $routes, FILE_APPEND | LOCK_EX);
         }
-
     }
+
     /**
      * Registers the config file during publishing.
-     *
-     * @return void
      */
     public function register()
     {
@@ -113,6 +107,7 @@ Route::group(['prefix' => config('entrance.prefix')], function() {
                 'config/entrance.php',
         ]);
     }
+
     /**
      * Registers the packages.
      *

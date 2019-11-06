@@ -2,7 +2,7 @@
 
 namespace Way2Web\Entrance\Http\Middleware;
 
-/**
+/*
  * @package Entrance
  * @author David Bikanov <dbikanov@intothesource.com>
  */
@@ -22,8 +22,7 @@ class CheckLogin
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
-     * @return void
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -33,8 +32,9 @@ class CheckLogin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -42,10 +42,10 @@ class CheckLogin
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
-            } else {
-                $request->session()->flash('error', 'U moet eerst inloggen om de pagina in te zien.');
-                return redirect()->guest( route('login.index') );
             }
+            $request->session()->flash('error', 'U moet eerst inloggen om de pagina in te zien.');
+
+            return redirect()->guest(route('login.index'));
         }
 
         return $next($request);

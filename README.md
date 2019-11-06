@@ -61,8 +61,8 @@ See www.laravel.com/docs/master/mail for more info about mail settings.
 Change the view route inside -> config/entrance.php
 ```bash
 'mail' => [
- 			'password_reset' => '<your view here>'
- 		]
+    'password_reset' => '<your view here>'
+ ]
 ```
 
 #### Authenticate Routes

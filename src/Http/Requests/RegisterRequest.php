@@ -26,7 +26,7 @@ class RegisterRequest extends Request
     {
         return [
             'email'     => 'required|email|max:255|unique:users,email',
-            'password'  => 'required|confirmed|min:'.config('entrance.password_length').'|max:255',
+            'password'  => 'required|confirmed|min:' . config('entrance.password_length') . '|max:255',
         ];
     }
 }
