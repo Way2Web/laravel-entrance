@@ -38,7 +38,7 @@ class EntranceServiceProvider extends ServiceProvider
      */
     public function setupRoutes()
     {
-        $routesFile = app_path() . '/Http/routes.php';
+        $routesFile = base_path() . '/routes/web.php';
 
         $currentRoutes = file_get_contents($routesFile);
 
